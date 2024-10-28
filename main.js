@@ -4,7 +4,7 @@ const apiUrlSpaceX = `https://api.spacexdata.com/v5/launches/latest`;
 
 const PlanetaryImage = document.querySelector('.main-header__picture-day');
 const PlanetaryDescription = document.querySelector('.main-header__description');
-const PlanetaryTItle = document.querySelector('.main-header__title');
+const PlanetaryTitle = document.querySelector('.main-header__title');
 const PlanetaryCopyright = document.querySelector('.main-header__copyright');
 
 axios.get(apiUrlPlanetary)
@@ -18,25 +18,25 @@ axios.get(apiUrlPlanetary)
         }
 
         PlanetaryDescription.innerHTML = response.data.explanation;
-        PlanetaryTItle.innerHTML = "<span>Image of the day: </span>" + response.data.title;
+        PlanetaryTitle.innerHTML = "<span>Image of the day: </span>" + response.data.title;
         PlanetaryCopyright.innerHTML = "© " + response.data.copyright;
     })
     .catch(error => {
         console.error('Error al obtener la imagen del día:', error);
     });
 
-axios.get(apiUrlSpaceX)
-    .then(response => {
-        console.log(response.data);
-        const launches = document.querySelector('.main-spacex__launches');
-        response.data.forEach(item => {
-            launches.innerHTML += `
-            <div class="main-spacex__launches-item">
-                <h4>${item.name}</h4>
-            </div>
-            `;
-        });
-    })
-    .catch(error => {
-        console.error(error);
-    });
+// axios.get(apiUrlSpaceX)
+//     .then(response => {
+//         console.log(response.data);
+//         const launches = document.querySelector('.main-spacex__launches');
+//         response.data.forEach(item => {
+//             launches.innerHTML += `
+//             <div class="main-spacex__launches-item">
+//                 <h4>${item.name}</h4>
+//             </div>
+//             `;
+//         });
+//     })
+//     .catch(error => {
+//         console.error(error);
+//     });
