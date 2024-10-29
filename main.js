@@ -1,13 +1,16 @@
 const apiKey = 'dYQPSNgtZshgacg3njoT7j18NMxjsObhdidYYZcp';
 const apiUrlPlanetary = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 const apiUrlLaunches = `https://ll.thespacedevs.com/2.3.0/launches/?limit=5&offset=0`;
+const apiUrlPeople = `http://api.open-notify.org/astros.json`;
 
-const PlanetaryImage = document.querySelector('.main-header__picture-day');
+const PlanetaryImage = document.querySelector('.main-header__img');
 const PlanetaryDescription = document.querySelector('.main-header__description');
 const PlanetaryTitle = document.querySelector('.main-header__title');
 const PlanetaryCopyright = document.querySelector('.main-header__copyright');
 const loadImage = document.querySelector('.load-image');
 const launchesContainer = document.querySelector('.launches-container');
+const peopleContainer = document.querySelector('.people-space__container');
+const peopleCount = document.querySelector('.people-space__count')
 
 
 axios.get(apiUrlPlanetary)
@@ -57,6 +60,23 @@ axios.get(apiUrlLaunches)
                 `
             }
 
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+
+axios.get(apiUrlPeople)
+    .then(response => {
+        counter = response.data.people.length;
+        peopleCount.innerHTML = counter
+        response.data.people.forEach(person => {
+            peopleContainer.innerHTML += `
+            <div class="people-space__container-item">
+                <h6>${person.name}</h6>
+                <p>Craft: ${person.craft}</p>
+            </div>
+            `
         });
     })
     .catch(error => {
