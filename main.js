@@ -1,42 +1,64 @@
 const apiKey = 'dYQPSNgtZshgacg3njoT7j18NMxjsObhdidYYZcp';
 const apiUrlPlanetary = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
-const apiUrlSpaceX = `https://api.spacexdata.com/v5/launches/latest`;
+const apiUrlLaunches = `https://ll.thespacedevs.com/2.3.0/launches/?limit=5&offset=0`;
 
 const PlanetaryImage = document.querySelector('.main-header__picture-day');
 const PlanetaryDescription = document.querySelector('.main-header__description');
 const PlanetaryTitle = document.querySelector('.main-header__title');
 const PlanetaryCopyright = document.querySelector('.main-header__copyright');
+const loadImage = document.querySelector('.load-image');
+const launchesContainer = document.querySelector('.launches-container');
+
 
 axios.get(apiUrlPlanetary)
     .then(response => {
         const mediaType = response.data.media_type;
 
-        if (mediaType === 'image') {
-            PlanetaryImage.innerHTML = `<img class="main-header__picture-day__img" src="${response.data.hdurl}" alt="picture of the day"></img>`;
-        } else {
-            PlanetaryImage.innerHTML = `<video src="${response.data.hdurl}" controls></video>`;
-        }
+        loadImage.addEventListener('click', () => {
+            if (mediaType === 'image') {
+                PlanetaryImage.innerHTML = `<img class="main-header__picture-day__img" src="${response.data.hdurl}" alt="picture of the day"></img>`;
+            } else {
+                PlanetaryImage.innerHTML = `<video src="${response.data.hdurl}" controls></video>`;
+            }        
+        });
 
         PlanetaryDescription.innerHTML = response.data.explanation;
         PlanetaryTitle.innerHTML = "<span>Image of the day: </span>" + response.data.title;
-        PlanetaryCopyright.innerHTML = "© " + response.data.copyright;
+
+        if(response.data.copyright) PlanetaryCopyright.innerHTML = "© " + response.data.copyright;
     })
     .catch(error => {
-        console.error('Error al obtener la imagen del día:', error);
+        console.error(error);
     });
 
-// axios.get(apiUrlSpaceX)
-//     .then(response => {
-//         console.log(response.data);
-//         const launches = document.querySelector('.main-spacex__launches');
-//         response.data.forEach(item => {
-//             launches.innerHTML += `
-//             <div class="main-spacex__launches-item">
-//                 <h4>${item.name}</h4>
-//             </div>
-//             `;
-//         });
-//     })
-//     .catch(error => {
-//         console.error(error);
-//     });
+axios.get(apiUrlLaunches)
+    .then(response => {
+        const latestLaunches = response.data.results;
+        latestLaunches.forEach(launch => {
+            if (launch.status.abbrev == "Success") {
+                launchesContainer.innerHTML += `
+                <div class="launches-container__item">
+                    <span>
+                        <h6>${launch.name}</h6>
+                        <p>${launch.last_updated}</p>
+                    </span>
+                    <span class="success">${launch.status.abbrev}</span>
+                </div>
+                `
+            } else {
+                launchesContainer.innerHTML += `
+                <div class="launches-container__item">
+                    <span>
+                        <h6>${launch.name}</h6>
+                        <p>${launch.last_updated}</p>
+                    </span>
+                    <span class="failure">${launch.status.abbrev}</span>
+                </div>
+                `
+            }
+
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });

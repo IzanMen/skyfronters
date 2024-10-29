@@ -48,6 +48,11 @@ body {
 
 /* MAIN SECTION */
 
+.main {
+    border-bottom: 1px solid #fff;
+    padding-bottom: 70px;
+}
+
 .main-header {
     display: flex;
     flex-direction: column;
@@ -78,7 +83,7 @@ body {
     & .main-header__img {
         display: flex;
         
-        & span {
+        & .arrow-down {
             position: absolute;
             margin-left: 43%;
             margin-top: 50px;
@@ -106,9 +111,49 @@ body {
         object-fit: cover;
         margin-top: 30px;
         width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff5;
+        min-height: 150px;
+
+        & span {
+            padding: 5px 15px;
+            padding-bottom: 7px;
+            background-color: #fff;
+            color: #000;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+            box-shadow: 0 0 10px #fff8;
+            transition: all 0.3s;
+        }
+
+        & span:hover {
+            background-color: #aaa;
+        }
 
         & img {
             width: 100%;
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .main-header {
+        & .main-header__img {
+
+            & .main-header__picture-day {
+                width: 100%;
+            }
+
+            & .arrow-down {
+                display: none;
+            }
+
+            & .main-header__img-arrow {
+                display: none;
+            }
         }
     }
 }
@@ -119,5 +164,67 @@ body {
     }
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* STATIONS SECTION */
+
+.stations {
+    margin-top: 15px;
+
+    & h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    & iframe {
+        width: 100%;
+    }
+}
+
+/* LAUNCHES SECTION */
+
+.launches {
+    margin-top: 30px;
+
+    & h3 {
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+
+    & .launches-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        & .launches-container__item {
+            box-shadow: 5px 5px 10px #fff3;
+            background-color: #fff5;
+            border-radius: 5px;
+            padding: 0 20px;
+            width: 450px;
+            height: 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            & h6 {
+                font-weight: 800;
+                color: #000;
+                font-size: 1.3rem;
+            }
+
+            & .success {
+                font-weight: 900;
+                color: #0f0;
+            }
+
+            & .failure {
+                font-weight: 900;
+                color: #f00;
+            }
+        }
     }
 }
