@@ -46,6 +46,13 @@ body {
     }
 }
 
+@media screen and (max-width: 900px) {
+    body {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
 /* MAIN SECTION */
 
 .main {
@@ -159,6 +166,7 @@ body {
             border-radius: 5px;
             padding: 0 20px;
             width: 450px;
+            max-width: 100%;
             height: 100px;
             display: flex;
             justify-content: space-between;
@@ -239,7 +247,7 @@ body {
     }
 }
 
-@media (max-width: 780px) {
+@media (max-width: 530px) {
     .people-space {
         & .people-space__container {
             & .people-space__container-item {
