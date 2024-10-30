@@ -1,7 +1,7 @@
 const apiKey = 'dYQPSNgtZshgacg3njoT7j18NMxjsObhdidYYZcp';
 const apiUrlPlanetary = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 const apiUrlLaunches = `https://ll.thespacedevs.com/2.3.0/launches/?limit=5&offset=0`;
-const apiUrlPeople = `http://api.open-notify.org/astros.json`;
+const apiUrlPeople = `https://corquaid.github.io/international-space-station-APIs/JSON/people-in-space.json`;
 
 const PlanetaryImage = document.querySelector('.main-header__img');
 const PlanetaryDescription = document.querySelector('.main-header__description');
@@ -10,8 +10,7 @@ const PlanetaryCopyright = document.querySelector('.main-header__copyright');
 const loadImage = document.querySelector('.load-image');
 const launchesContainer = document.querySelector('.launches-container');
 const peopleContainer = document.querySelector('.people-space__container');
-const peopleCount = document.querySelector('.people-space__count')
-
+const peopleCount = document.querySelector('.people-space__count');
 
 axios.get(apiUrlPlanetary)
     .then(response => {
@@ -47,7 +46,7 @@ axios.get(apiUrlLaunches)
                     </span>
                     <span class="success">${launch.status.abbrev}</span>
                 </div>
-                `
+                `;
             } else {
                 launchesContainer.innerHTML += `
                 <div class="launches-container__item">
@@ -57,9 +56,8 @@ axios.get(apiUrlLaunches)
                     </span>
                     <span class="failure">${launch.status.abbrev}</span>
                 </div>
-                `
+                `;
             }
-
         });
     })
     .catch(error => {
@@ -68,15 +66,14 @@ axios.get(apiUrlLaunches)
 
 axios.get(apiUrlPeople)
     .then(response => {
-        counter = response.data.people.length;
-        peopleCount.innerHTML = counter
+        peopleCount.innerHTML = response.data.number;
         response.data.people.forEach(person => {
             peopleContainer.innerHTML += `
             <div class="people-space__container-item">
                 <h6>${person.name}</h6>
-                <p>Craft: ${person.craft}</p>
+                <p>Craft: ${person.spacecraft}</p>
             </div>
-            `
+            `;
         });
     })
     .catch(error => {
