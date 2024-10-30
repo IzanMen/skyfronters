@@ -65,6 +65,7 @@ axios.get(apiUrlLaunches)
         });
     })
     .catch(error => {
+        launchesContainer.innerHTML = `<p>Sorry, too many requests have been made recently. Try again later.</p>`;
         console.error(error);
     });
 
@@ -81,6 +82,7 @@ axios.get(apiUrlPeople)
         });
     })
     .catch(error => {
+        peopleContainer.innerHTML = `<p>Sorry, too many requests have been made recently. Try again later.</p>`;
         console.error(error);
     });
 
@@ -107,3 +109,23 @@ axios.get(apiImages, {
         console.error(error);
     });
     
+const rockets = document.querySelectorAll('.rocket');
+
+function launchRockets() {
+    rockets.forEach((rocket) => {
+        rocket.style.transition = 'transform 10s ease-in-out'; 
+        rocket.style.transform = 'translate(0, -1000vh)'; 
+    });
+    
+    
+    setTimeout(() => {
+        rockets.forEach((rocket) => {
+            rocket.style.transition = 'none'; 
+            rocket.style.transform = 'translate(0, 0)'; 
+        });
+        setTimeout(launchRockets, 1000); 
+    }, 10000); 
+}
+
+launchRockets();
+

@@ -318,6 +318,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100px;
+    background-color: transparent;
 }
 
 .footer-madeby {
@@ -351,3 +352,18 @@ body {
     }
 }
 
+/* ROCKETS */
+
+.rocket1 {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    height: 150px;
+}
+
+.rocket2 {
+    position: absolute;
+    bottom: 0px;
+    right: 20px;
+    height: 150px;
+}
