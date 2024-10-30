@@ -113,7 +113,7 @@ const rockets = document.querySelectorAll('.rocket');
 
 function launchRockets() {
     rockets.forEach((rocket) => {
-        rocket.style.transition = 'transform 10s ease-in-out'; 
+        rocket.style.transition = 'transform 8s ease-in-out'; 
         rocket.style.transform = 'translate(0, -1000vh)'; 
     });
     
@@ -121,7 +121,7 @@ function launchRockets() {
     setTimeout(() => {
         rockets.forEach((rocket) => {
             rocket.style.transition = 'none'; 
-            rocket.style.transform = 'translate(0, 0)'; 
+            rocket.style.transform = 'translate(0, 200px)'; 
         });
         setTimeout(launchRockets, 1000); 
     }, 10000); 
