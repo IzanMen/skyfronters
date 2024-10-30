@@ -2,6 +2,9 @@ const apiKey = 'dYQPSNgtZshgacg3njoT7j18NMxjsObhdidYYZcp';
 const apiUrlPlanetary = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
 const apiUrlLaunches = `https://ll.thespacedevs.com/2.3.0/launches/?limit=5&offset=0`;
 const apiUrlPeople = `https://corquaid.github.io/international-space-station-APIs/JSON/people-in-space.json`;
+const apiImages = `https://api.pexels.com/v1/search`;
+
+
 
 const PlanetaryImage = document.querySelector('.main-header__img');
 const PlanetaryDescription = document.querySelector('.main-header__description');
@@ -11,6 +14,7 @@ const loadImage = document.querySelector('.load-image');
 const launchesContainer = document.querySelector('.launches-container');
 const peopleContainer = document.querySelector('.people-space__container');
 const peopleCount = document.querySelector('.people-space__count');
+const galeryContainer = document.querySelector('.galery-container')
 
 axios.get(apiUrlPlanetary)
     .then(response => {
@@ -79,3 +83,27 @@ axios.get(apiUrlPeople)
     .catch(error => {
         console.error(error);
     });
+
+axios.get(apiImages, {
+    params: {
+        query: 'space',
+        page: 1,
+        per_page: 20,
+    },
+    headers: {
+        Authorization: 'KDxNuVeQ8FXb5txH2SaEBpbq5csbQFsAwUp1cn1AAthz8Iu0iKdjWSSh',
+    },
+    })
+    .then(response => {
+        console.log(response.data.photos);
+        const images = response.data.photos;
+        images.forEach(image => {
+            galeryContainer.innerHTML += `
+            <img src="${image.src.medium}">
+            `
+        })
+    })
+    .catch(error => {
+        console.error(error);
+    });
+    
